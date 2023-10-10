@@ -1,0 +1,13 @@
+# for development env
+
+FROM node:alpine3.10
+
+WORKDIR /job-listing-with-filters
+
+COPY ./package.json /job-listing-with-filters
+
+RUN npm install
+
+COPY . /job-listing-with-filters
+
+CMD [ "npm","start" ]

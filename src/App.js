@@ -91,7 +91,7 @@ function App() {
 
 
   return (
-    <div className={`jobs-container bg-[#5CA5A5] bg-opacity-10 ${!filterList.length && "h-[100vh]"}`}>
+    <div className="jobs-container bg-[#5CA5A5] bg-opacity-10" >
       <div className='jobs-content flex flex-col justify-center'>
         <div className="bg-[url('../public/images/bg-header-desktop.svg')] h-[156px] bg-[#5CA5A5] bg-no-repeat bg-cover w-full">
 
