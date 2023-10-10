@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import data from './data.json';
 import JobsList from './components/JobsList'
 
@@ -49,20 +48,32 @@ const FilterBox = (props) => {
 }
 
 
-function App(props) {
+function App() {
 
-  const jobData = data;
+  const [jobData, setJobData] = useState([]);
   const [filterList, setFilterList] = useState([]);
 
-  const filterArray = [];
+  useEffect(() => {
+    // Load the data from data.json when the component mounts
+    setJobData(data);
+  }, []);
+
+
+
 
   const tagArray = (e) => {
     const tag = e.target.innerText;
     setFilterList(current =>
       [...new Set([...current, tag])] );
-    console.log("inside tag array",filterList) 
   }
-  console.log("outside tag array",filterList) 
+
+  const filteredJobs = jobData.filter(job => {
+    return (
+      filterList.includes(job.role) ||
+      filterList.includes(job.level) ||
+      job.languages.some(language => filterList.includes(language))
+    );
+  });
   
 
   const filterClear = () => {
@@ -72,13 +83,11 @@ function App(props) {
 
   const filterRemove = (e) => {
     if (e >= 0 && e < filterList.length) {
-      const updatedFilterList = [...filterList]; // Create a copy of the array
-      updatedFilterList.splice(e, 1); // Remove the element
-      setFilterList(updatedFilterList); // Update the state
+      const updatedFilterList = [...filterList]; 
+      updatedFilterList.splice(e, 1);
+      setFilterList(updatedFilterList); 
     }
   }
-  
-  console.log("outside filterRemove",filterList) 
 
 
   return (
@@ -91,11 +100,16 @@ function App(props) {
         <FilterBox filterList={filterList} filterClear={filterClear} filterRemove={filterRemove}/>
         
         <div className={`flex flex-col gap-6 pb-40 ${!filterList.length && "mt-[72px]"}`} >
-          {jobData.map((jobDetails, index) => {
+          {filteredJobs.length ?  filteredJobs.map((jobDetails, index) => {
+            return (
+              <JobsList key={index} jobDetails={jobDetails} tagArray={tagArray} />
+            )
+          }) : jobData.map((jobDetails, index) => {
             return (
               <JobsList key={index} jobDetails={jobDetails} tagArray={tagArray} />
             )
           })}
+
 
         </div>
 
