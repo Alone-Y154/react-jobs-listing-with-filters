@@ -25,7 +25,7 @@ const FilterBox = (props) => {
   return (
 
     <div className={`filter-container ${!filterList.length && "hidden"} flex justify-center relative top-[-36px]`}>
-      {filterList.length && <div className="filter-content justify-between flex-wrap flex w-[1110px] h-[72px] bg-white rounded-[5px] shadow-[0px_15px_20px_-5px_rgba(13, 113, 130, 0.15)] items-center px-10">
+      {filterList.length && <div className="filter-content justify-between flex-wrap flex w-[1110px] lg:w-[327px] lg:h-full lg:p-4 h-[72px] bg-white rounded-[5px] shadow-[0px_15px_20px_-5px_rgba(13, 113, 130, 0.15)] items-center px-10">
         <div className='filter-array flex gap-4 float-left justify-start flex-wrap'>
 
           {filterList.map((filterName, index) => {
@@ -36,7 +36,7 @@ const FilterBox = (props) => {
         </div>
 
 
-        <div onClick={props.filterClear} className='filter-clear justify-end hover:text-[#5CA5A5] float-right text-right text-base font-bold  tracking-[-0.123px] text-[#7C8F8F] hover:underline cursor-pointer'>
+        <div onClick={props.filterClear} className='filter-clear justify-end hover:text-[#5CA5A5] lg:mt-4 float-right lg:p-4  text-right text-base font-bold  tracking-[-0.123px] text-[#7C8F8F] hover:underline cursor-pointer'>
           <p>Clear</p>
         </div>
       </div>}
@@ -99,7 +99,7 @@ function App() {
 
         <FilterBox filterList={filterList} filterClear={filterClear} filterRemove={filterRemove}/>
         
-        <div className={`flex flex-col gap-6 pb-40 ${!filterList.length && "mt-[72px]"}`} >
+        <div className={`flex flex-col gap-6 lg:gap-10 pb-40 ${!filterList.length && "mt-[72px]"}`} >
           {filteredJobs.length ?  filteredJobs.map((jobDetails, index) => {
             return (
               <JobsList key={index} jobDetails={jobDetails} tagArray={tagArray} />
